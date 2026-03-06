@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Homenagem Global - Celebração do Dia das Mulheres</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* === VARIÁVEIS DE CORES (NOVA PALETE IWD) === */
+        :root {
+            /* Cores IWD (International Women's Day) */
+            --iwd-purple: #6a1b9a;
+            /* Roxo: Justiça, Dignidade */
+            --iwd-pink: #d81b60;
+            /* Rosa: Carinho, Amor */
+            --iwd-gold: #ffb74d;
+            /* Ouro: Celebração, Energia */
+            --iwd-teal: #00796b;
+            /* Teal: Equilíbrio (substituto do ciano anterior) */
+
+            --bg-light: #fdf2f8;
+            /* Fundo creme/rosa bem claro para dar "vida" */
+            --text-dark: #3a0050;
+            /* Texto escuro roxo profundo */
+            --text-secondary: #757575;
+            --card-bg: #ffffff;
+
+            --font-title: 'Playfair Display', serif;
+            /* Fonte elegante para títulos */
+            --font-body: 'Poppins', sans-serif;
+            /* Fonte limpa para o corpo */
+        }
+
+        /* === CONFIGURAÇÕES GERAIS E FUNDO === */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            font-family: var(--font-body);
+            touch-action: manipulation;
+
+            /* Adicionando imagem de fundo temática sutil e elegante */
+            background-image: url("https://images.unsplash.com/photo-1614917551066-bd953e200636?q=80&w=1920&auto=format&fit=crop");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        /* Removido o Matrix Canvas pois compete com a nova imagem de fundo */
+        #matrix-bg {
+            display: none;
+        }
+
+        /* === CONTROLE DE TELAS === */
+        .screen {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInScreen 0.8s ease-out forwards;
+            padding: 60px 0;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .active-screen {
+            display: flex;
+        }
+
+        @keyframes fadeInScreen {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+                filter: blur(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        /* === CONTAINERS E TEXTOS === */
+        .intro-container {
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.95);
+            /* Fundo branco puro semi-transparente */
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(106, 27, 154, 0.15);
+            /* Sombra roxa suave */
+            backdrop-filter: blur(10px);
+            box-sizing: border-box;
+            border: 1px solid rgba(106, 27, 154, 0.1);
+        }
+
+        .typing-title {
+            font-family: var(--font-title);
+            font-size: 2.2em;
+            text-transform: uppercase;
+            color: var(--iwd-purple);
+            text-shadow: 0 0 15px rgba(106, 27, 154, 0.4);
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            display: inline-block;
+            white-space: normal;
+        }
+
+        .terminal-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: var(--text-dark);
+            text-align: left;
+        }
+
+        .terminal-line {
+            margin-bottom: 15px;
+        }
+
+        .fade-in-text {
+            opacity: 0;
+            animation: fadeInBtn 1s ease-out 1s forwards;
+        }
+
+        /* Palavras de Destaque da frase preferida */
+        .highlight-pink {
+            color: var(--iwd-pink);
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(216, 27, 96, 0.4);
+        }
+
+        .highlight-cyan {
+            color: var(--iwd-teal);
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 121, 107, 0.4);
+        }
+
+        .highlight-green {
+            color: var(--iwd-purple);
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(106, 27, 154, 0.4);
+        }
+
+        .success-text {
+            color: var(--iwd-teal);
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(0, 121, 107, 0.5);
+            font-family: var(--font-title);
+        }
+
+        /* === DESTAQUE ESPECIAL DA SUA FRASE PREFERIDA === */
+        .special-quote-container {
+            background: linear-gradient(135deg, rgba(106, 27, 154, 0.1) 0%, rgba(216, 27, 96, 0.1) 100%);
+            border-left: 5px solid var(--iwd-purple);
+            padding: 20px;
+            border-radius: 0 15px 15px 0;
+            margin: 30px 0;
+            box-shadow: -5px 0 20px rgba(106, 27, 154, 0.2);
+            font-family: var(--font-title);
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #4a148c;
+            /* Roxo muito escuro */
+            text-align: left;
+        }
+
+        .special-quote-container .glow-word {
+            display: inline-block;
+            font-weight: bold;
+            padding: 0 3px;
+        }
+
+        .special-quote-container .pink {
+            color: var(--iwd-pink);
+            text-shadow: 0 0 10px var(--iwd-pink);
+        }
+
+        .special-quote-container .cyan {
+            color: var(--iwd-teal);
+            text-shadow: 0 0 10px var(--iwd-teal);
+        }
+
+        .special-quote-container .green {
+            color: var(--iwd-purple);
+            text-shadow: 0 0 10px var(--iwd-purple);
+        }
+
+        /* === BOTÕES === */
+        .btn-tech {
+            background: transparent;
+            border: 2px solid;
+            padding: 14px 28px;
+            font-size: 1.1em;
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: 0.4s ease;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-weight: bold;
+        }
+
+        .btn-flashy {
+            margin-top: 40px;
+            width: 100%;
+            max-width: 350px;
+            border-color: var(--iwd-pink);
+            color: var(--iwd-pink);
+            opacity: 0;
+            animation: fadeInBtn 1s ease-out 1.5s forwards, pulse-flash-iwd 1.5s infinite alternate 2s;
+        }
+
+        @keyframes pulse-flash-iwd {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 10px rgba(216, 27, 96, 0.3);
+                background: transparent;
+            }
+
+            100% {
+                transform: scale(1.05);
+                box-shadow: 0 0 30px rgba(216, 27, 96, 0.6), 0 0 15px rgba(216, 27, 96, 0.2) inset;
+                background: rgba(216, 27, 96, 0.1);
+            }
+        }
+
+        /* === TELA 2: SELEÇÃO E CARREGAMENTO === */
+        #loading-terminal {
+            display: none;
+            width: 90%;
+            max-width: 650px;
+            text-align: left;
+            border-color: var(--iwd-purple);
+            box-shadow: 0 0 25px rgba(106, 27, 154, 0.2);
+        }
+
+        #selection-content {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .selection-title {
+            font-family: var(--font-title);
+            color: var(--iwd-purple);
+            font-size: 2em;
+            text-shadow: 0 0 10px rgba(106, 27, 154, 0.3);
+            margin-bottom: 10px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .selection-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1em;
+            margin-bottom: 40px;
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        .cards-container {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 90%;
+            max-width: 450px;
+        }
+
+        .tech-card {
+            background: rgba(255, 255, 255, 0.98);
+            border: 2px solid;
+            border-radius: 15px;
+            padding: 25px;
+            width: 100%;
+            text-align: center;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            box-sizing: border-box;
+            box-shadow: 0 5px 15px rgba(106, 27, 154, 0.08);
+        }
+
+        .tech-card h3 {
+            margin: 0;
+            font-family: var(--font-title);
+            font-size: 1.8em;
+            letter-spacing: 1px;
+        }
+
+        .tech-card p {
+            margin: 0;
+            font-size: 0.95em;
+            color: var(--text-secondary);
+        }
+
+        .icon {
+            font-size: 2.8em;
+        }
+
+        .card-cyan {
+            border-color: var(--iwd-purple);
+            color: var(--iwd-purple);
+            box-shadow: 0 0 10px rgba(106, 27, 154, 0.05) inset;
+        }
+
+        .card-cyan:hover,
+        .card-cyan:active {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(106, 27, 154, 0.3);
+            background: rgba(106, 27, 154, 0.03);
+        }
+
+        /* DESTAQUE DA NAMORADA MANTIDO */
+        .card-pink {
+            border-color: var(--iwd-pink);
+            color: var(--iwd-pink);
+            padding: 35px 25px;
+            box-shadow: 0 0 25px rgba(216, 27, 96, 0.15) inset, 0 0 15px rgba(216, 27, 96, 0.1);
+            animation: pulse-glow-card 2s infinite alternate;
+            transform: scale(1.05);
+            /* Deixa levemente maior */
+            border-width: 3px;
+            /* Borda mais grossa */
+        }
+
+        .card-pink h3 {
+            font-size: 2.4em;
+            text-shadow: 0 0 10px rgba(216, 27, 96, 0.3);
+        }
+
+        .card-pink .icon {
+            font-size: 3.5em;
+        }
+
+        .card-pink:hover,
+        .card-pink:active {
+            transform: scale(1.08) translateY(-5px);
+            box-shadow: 0 10px 40px rgba(216, 27, 96, 0.5);
+            background: rgba(216, 27, 96, 0.05);
+        }
+
+        /* DESTAQUE DO BOTÃO DE AGRADECIMENTO UNIFICADO */
+        .btn-general-thanks {
+            margin-top: 40px;
+            color: #fff;
+            border-color: #555;
+            font-size: 0.9em;
+            width: 90%;
+            max-width: 300px;
+            text-align: center;
+            opacity: 1;
+            /* Garante que ele apareça */
+            animation: pulse-glow-white-thanks 2s infinite alternate;
+            /* Brilho neon branco permanente */
+        }
+
+        .btn-general-thanks:hover,
+        .btn-general-thanks:active {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 20px #fff;
+            border-color: #fff;
+        }
+
+        /* === ANIMAÇÃO DE CARREGAMENTO COM ITENS === */
+        .loading-items-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .loading-item {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--iwd-purple);
+            box-shadow: 0 0 10px rgba(106, 27, 154, 0.3);
+            opacity: 0;
+            animation: itemFadeIn 0.5s ease-out forwards;
+        }
+
+        .loading-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .loading-item:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .loading-item:nth-child(3) {
+            animation-delay: 0.5s;
+        }
+
+        .loading-item:nth-child(4) {
+            animation-delay: 0.7s;
+        }
+
+        .loading-item:nth-child(5) {
+            animation-delay: 0.9s;
+        }
+
+        .loading-item:nth-child(6) {
+            animation-delay: 1.1s;
+        }
+
+        .loading-item:nth-child(7) {
+            animation-delay: 1.3s;
+        }
+
+        .loading-item:nth-child(8) {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes itemFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0) translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* === PAINÉIS DOS PERFIS === */
+        .profile-panel {
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid;
+            padding: 30px 25px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 700px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            position: relative;
+            box-sizing: border-box;
+            box-shadow: 0 10px 40px rgba(106, 27, 154, 0.12);
+        }
+
+        .profile-panel h2 {
+            margin-top: 0;
+            font-family: var(--font-title);
+            font-size: 1.6em;
+            border-bottom: 2px solid;
+            padding-bottom: 12px;
+            text-transform: uppercase;
+            word-wrap: break-word;
+        }
+
+        .profile-panel p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+        }
+
+        .panel-cyan {
+            border-color: var(--iwd-purple);
+        }
+
+        .panel-cyan h2 {
+            color: var(--iwd-purple);
+            border-color: var(--iwd-purple);
+            text-shadow: 0 0 10px rgba(106, 27, 154, 0.3);
+        }
+
+        .panel-pink {
+            border-color: var(--iwd-pink);
+        }
+
+        .panel-pink h2 {
+            color: var(--iwd-pink);
+            border-color: var(--iwd-pink);
+            text-shadow: 0 0 10px rgba(216, 27, 96, 0.3);
+        }
+
+        .photo-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .photo-frame {
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 1/1;
+            padding: 6px;
+            background: #fff;
+            border: 3px solid;
+            overflow: hidden;
+            box-sizing: border-box;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .photo-frame:hover {
+            transform: scale(1.03);
+        }
+
+        /* AQUI FOI ALTERADO PARA ACEITAR VIDEO TAMBÉM MANTIDO */
+        .photo-frame img,
+        .photo-frame video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(105%);
+            pointer-events: none;
+            border-radius: 8px;
+        }
+
+        #modal-content-container img,
+        #modal-content-container video {
+            max-width: 95%;
+            max-height: 80vh;
+            border: 3px solid var(--iwd-purple);
+            box-shadow: 0 0 30px rgba(106, 27, 154, 0.3);
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .frame-cyan {
+            border-color: var(--iwd-purple);
+            box-shadow: 0 5px 15px rgba(106, 27, 154, 0.1);
+        }
+
+        .frame-pink {
+            border-color: var(--iwd-pink);
+            box-shadow: 0 5px 15px rgba(216, 27, 96, 0.1);
+        }
+
+        .btn-voltar {
+            color: #fff;
+            border-color: var(--text-secondary);
+            background-color: var(--text-secondary);
+            font-size: 0.9em;
+            padding: 12px 20px;
+            margin-top: 15px;
+            width: 100%;
+            max-width: 220px;
+            font-family: var(--font-title);
+        }
+
+        .btn-voltar:hover {
+            background: #fff;
+            color: var(--text-secondary);
+            border-color: var(--text-secondary);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* === MODAIS === */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .thanks-panel {
+            background: rgba(255, 255, 255, 0.99);
+            border: 2px solid var(--iwd-pink);
+            padding: 40px 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 10px 50px rgba(216, 27, 96, 0.3);
+            backdrop-filter: blur(10px);
+            box-sizing: border-box;
+        }
+
+        .thanks-panel h2 {
+            color: var(--iwd-pink);
+            font-family: var(--font-title);
+            font-size: 1.8em;
+            text-transform: uppercase;
+            margin-top: 0;
+            text-shadow: 0 0 10px rgba(216, 27, 96, 0.3);
+        }
+
+        .thanks-panel p {
+            color: var(--text-dark);
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .btn-fechar {
+            color: #fff;
+            border-color: var(--iwd-pink);
+            background-color: var(--iwd-pink);
+            font-size: 1em;
+            padding: 14px 24px;
+            width: 100%;
+            max-width: 220px;
+            font-family: var(--font-title);
+        }
+
+        .btn-fechar:hover {
+            background: #fff;
+            color: var(--iwd-pink);
+            border-color: var(--iwd-pink);
+            box-shadow: 0 0 20px rgba(216, 27, 96, 0.4);
+        }
+
+        /* === ANIMAÇÕES UNIFICADAS === */
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink-cursor {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        @keyframes fadeInBtn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse-glow-card {
+            0% {
+                box-shadow: 0 0 10px rgba(216, 27, 96, 0.1) inset;
+            }
+
+            100% {
+                box-shadow: 0 0 35px rgba(216, 27, 96, 0.5) inset, 0 0 40px rgba(216, 27, 96, 0.4);
+            }
+        }
+
+        @keyframes pulse-glow-white-thanks {
+            0% {
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.1) inset;
+                background-color: #555;
+            }
+
+            100% {
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.3) inset, 0 0 15px rgba(255, 255, 255, 0.2);
+                background-color: #333;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="matrix-bg"></canvas>
+
+    <div id="screen-intro" class="screen active-screen">
+        <div class="intro-container">
+            <div class="typing-title">Feliz Dia das Mulheres</div>
+
+            <div class="terminal-text fade-in-text">
+                <p class="terminal-line"
+                    style="color: var(--iwd-purple); font-weight: bold; font-family: var(--font-title); font-size: 1.1em;">
+                </p>
+
+                <div class="special-quote-container">
+                    Às mulheres que fazem parte da minha vida: sua <span class="glow-word pink">força</span>, <span
+                        class="glow-word cyan">resiliência</span> e <span class="glow-word pink">amor</span> são os
+                    <span class="glow-word green">códigos</span> que dão sentido ao meu mundo.<br><br>
+                    <span style="font-style: italic; opacity: 0.8; font-size: 0.9em;">>> Obrigado por existirem.</span>
+                </div>
+            </div>
+
+            <button id="btn-iniciar" class="btn-tech btn-flashy" onclick="mudarTela('screen-selection')">>> INICIAR
+                RECONHECIMENTO <<< /button>
+        </div>
+    </div>
+
+    <div id="screen-selection" class="screen">
+
+        <div id="loading-terminal" class="intro-container">
+            <div class="terminal-text" style="margin-top: 0;">
+                <p id="sel-line1" class="terminal-line" style="display: none;">>> Iniciando protocolo de
+                    reconhecimento...</p>
+                <p id="sel-line2" class="terminal-line highlight-text"
+                    style="display: none; color: var(--iwd-purple); font-weight: bold;">>> Identificando as
+                    inteligências superiores que iluminam minha existência...</p>
+
+                <div id="loading-items" class="loading-items-container" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div id="selection-content">
+            <h2 class="selection-title">Identificação</h2>
+            <p class="selection-subtitle">Quem está solicitando o acesso ao sistema?</p>
+
+            <div class="cards-container">
+                <div class="tech-card card-cyan" onclick="acessarPerfil('screen-mae')">
+                    <div class="icon">🧬</div>
+                    <h3>Mamãe minha e do Marquito </h3>
+                    <p>Nível: Matriz Original</p>
+                </div>
+                <div class="tech-card card-pink" onclick="acessarPerfil('screen-namorada')">
+                    <div class="icon">❤️</div>
+                    <h3>Amor da minha vida</h3>
+                    <p>Nível: Acesso Vitalício VIP</p>
+                </div>
+                <div class="tech-card card-cyan" onclick="acessarPerfil('screen-sogra')">
+                    <div class="icon">👱‍♀️</div>
+                    <h3>Sogrinha linda</h3>
+                    <p>Nível: Matriz Do amor Da Minha Vida</p>
+                </div>
+            </div>
+
+            <button class="btn-tech btn-general-thanks" onclick="abrirModal('general-thanks-modal')">
+                <p>AGRADECIMENTOS A VOCÊS!!!</p>
+            </button>
+        </div>
+    </div>
+
+    <div id="screen-decrypting" class="screen">
+        <div class="intro-container"
+            style="border-color: var(--iwd-gold); box-shadow: 0 0 30px rgba(255, 183, 77, 0.3);">
+            <h2
+                style="color: var(--iwd-gold); text-transform: uppercase; letter-spacing: 2px; font-family: var(--font-title);">
+            </h2>
+            <div class="terminal-text"
+                style="text-align: center; font-size: 1.1em; min-height: 120px; font-family: var(--font-title);">
+                <p id="dec-step1" style="display: none; color: var(--text-dark);">Autenticando credenciais...</p>
+                <p id="dec-step2" style="display: none; color: var(--iwd-purple); font-weight: bold;">Descriptografando
+                    memórias e sentimentos...</p>
+                <p id="dec-step3" style="display: none; color: var(--iwd-pink); font-weight: bold;"></p>
+            </div>
+            <p id="dec-spinner" style="font-size: 2.5em; color: var(--iwd-gold); margin: 0; font-weight: bold;">|</p>
+        </div>
+    </div>
+
+    <div id="screen-mae" class="screen">
+        <div class="profile-panel panel-cyan">
+            <h2>>> CÓDIGO_MATRIZ: CONCEDIDO</h2>
+            <p>Mãe, você é a base de toda a minha programação, a origem do meu systema. Sua força e amor incondicional
+                são os firewalls que sempre me protegeram. Obrigado por ser meu porto seguro. Feliz Dia das Mulheres!
+            </p>
+            <div class="photo-grid">
+                <div class="photo-frame frame-cyan" onclick="abrirFoto(this)"><img src="mamae.jpeg" alt="Foto Mãe">
+                </div>
+                <div class="photo-frame frame-cyan" onclick="abrirFoto(this)"><img src="mamaeBarriga.jpeg"
+                        alt="Foto Mãe"></div>
+            </div>
+            <button class="btn-tech btn-voltar" onclick="mudarTela('screen-selection')">
+                <p>Voltar a tela</p>
+            </button>
+        </div>
+    </div>
+
+    <div id="screen-namorada" class="screen">
+        <div class="profile-panel panel-pink">
+            <h2>>> VICK_EVAPOR_RUB: CONCEDIDO</h2>
+            <p>Minha bebezuda,desde que você entrou na minha vida, tudinho fico coloridinho. Sua beleza, inteligência e
+                suas piadinhas ruins dominam todos os meus pensamentos,continue sendo forte é maravilhosa que seu
+                mudinho sera cheio de conquistas meu amor. Você é a arte que deus pinto e jogo fora o pincel . Feliz Dia
+                das Mulheres!</p>
+            <div class="photo-grid">
+                <div class="photo-frame frame-pink" onclick="abrirFoto(this)"><video src="video.mp4" autoplay loop muted
+                        playsinline></video></div>
+                <div class="photo-frame frame-pink" onclick="abrirFoto(this)"><img src="primeirafoto.jpeg"
+                        alt="Foto Namorada"></div>
+            </div>
+            <button class="btn-tech btn-voltar" onclick="mudarTela('screen-selection')">
+                <p>Voltar a tela</p>
+            </button>
+        </div>
+    </div>
+
+    <div id="screen-sogra" class="screen">
+        <div class="profile-panel panel-cyan">
+            <h2>>> PROTOCOLO_FAMÍLIA: CONCEDIDO</h2>
+            <p>Raquelzinha, você e um exemplo de ser humano tanto para mim quanto para a Vitória,voce me ensina a como
+                ser um bom namorado para a sua filha e ser um bom ser humano, você é uma mulher muito guerreira e
+                batalhadora é a minha inspiração! Feliz Dia das Mulheres!</p>
+            <div class="photo-grid">
+                <div class="photo-frame frame-cyan" onclick="abrirFoto(this)"><img src="raquel.jpeg" alt="Foto Sogra">
+                </div>
+                <div class="photo-frame frame-cyan" onclick="abrirFoto(this)"><img src="raquelEvick.jpeg"
+                        alt="Foto Sogra"></div>
+            </div>
+            <button class="btn-tech btn-voltar" onclick="mudarTela('screen-selection')">
+                <p>Voltar a tela</p>
+            </button>
+        </div>
+    </div>
+
+    <div id="photo-modal" class="modal" onclick="fecharModal('photo-modal')">
+        <div id="modal-content-container"></div>
+        <p style="color: #fff; margin-top: 15px; font-size: 0.9em;">Clique para fechar</p>
+    </div>
+
+    <div id="general-thanks-modal" class="modal">
+        <div class="thanks-panel panel-pink">
+            <h2>AGRADECIMENTO GERAL</h2>
+            <p>
+                Aos três pilares fundamentais que sustentam meu mundo:<br><br>
+                Obrigado por cada ensinamento, cada sorriso e cada apoio em que vocês me deram.<br><br>
+                Mamãe, vick evaporub e Sogrinha linda.Diferentes papéis, mas uma mesma essência extraordinária. Minha
+                vida não seria a mesma sem a presença de vocês é o apoio ❤<br><br>
+                <br>
+                Com carinho, Miguel Arcanjo
+            </p>
+            <button class="btn-tech btn-fechar" onclick="fecharModal('general-thanks-modal')">FECHAR</button>
+        </div>
+    </div>
+
+    <script>
+        let carregamentoFeito = false;
+
+        function mudarTela(idDestino) {
+            document.querySelectorAll('.screen').forEach(el => el.classList.remove('active-screen'));
+            document.getElementById(idDestino).classList.add('active-screen');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (idDestino === 'screen-selection') {
+                if (!carregamentoFeito) {
+                    iniciarCarregamento();
+                } else {
+                    document.getElementById('loading-terminal').style.display = 'none';
+                    document.getElementById('selection-content').style.display = 'flex';
+                }
+            }
+        }
+
+        // LÓGICA DE DESCRIPTOGRAFIA QUE FALTAVA MANTIDA
+        function acessarPerfil(idDestino) {
+            document.querySelectorAll('.screen').forEach(el => el.classList.remove('active-screen'));
+            document.getElementById('screen-decrypting').classList.add('active-screen');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            document.getElementById('dec-step1').style.display = 'none';
+            document.getElementById('dec-step2').style.display = 'none';
+            document.getElementById('dec-step3').style.display = 'none';
+
+            let elemSpinner = document.getElementById('dec-spinner');
+            elemSpinner.style.display = 'block';
+            let spinnerFrames = ['|', '/', '-', '\\'];
+            let spinIdx = 0;
+
+            let spinInterval = setInterval(() => {
+                elemSpinner.innerText = spinnerFrames[spinIdx];
+                spinIdx = (spinIdx + 1) % spinnerFrames.length;
+            }, 100);
+
+            setTimeout(() => { document.getElementById('dec-step1').style.display = 'block'; }, 400);
+            setTimeout(() => { document.getElementById('dec-step2').style.display = 'block'; }, 1500);
+
+            setTimeout(() => {
+                document.getElementById('dec-step3').style.display = 'block';
+                clearInterval(spinInterval);
+                elemSpinner.style.display = 'none';
+            }, 2800);
+
+            setTimeout(() => {
+                mudarTela(idDestino);
+            }, 3600);
+        }
+
+        function iniciarCarregamento() {
+            document.getElementById('loading-terminal').style.display = 'block';
+            document.getElementById('selection-content').style.display = 'none';
+
+            function criarLoadingItems() {
+                const container = document.getElementById('loading-items');
+                container.innerHTML = '';
+                for (let i = 0; i < 8; i++) {
+                    const item = document.createElement('div');
+                    item.className = 'loading-item';
+                    container.appendChild(item);
+                }
+            }
+
+            setTimeout(() => { document.getElementById('sel-line1').style.display = 'block'; }, 600);
+            setTimeout(() => { document.getElementById('sel-line2').style.display = 'block'; }, 2000);
+
+            setTimeout(() => {
+                criarLoadingItems();
+                document.getElementById('loading-items').style.display = 'flex';
+            }, 3000);
+
+            setTimeout(() => {
+                document.getElementById('loading-terminal').style.display = 'none';
+                let contentBox = document.getElementById('selection-content');
+                contentBox.style.display = 'flex';
+                contentBox.style.animation = 'fadeInScreen 0.8s ease-out forwards';
+                carregamentoFeito = true;
+            }, 5800);
+        }
+
+        function abrirModal(idModal) { document.getElementById(idModal).classList.add('active'); }
+
+        function fecharModal(idModal) {
+            document.getElementById(idModal).classList.remove('active');
+            const videoNoModal = document.querySelector('#modal-content-container video');
+            if (videoNoModal) {
+                videoNoModal.pause();
+            }
+        }
+
+        /* FUNÇÃO PARA LER FOTO E VÍDEO MANTIDA */
+        function abrirFoto(divPhotoFrame) {
+            const midiaOriginal = divPhotoFrame.querySelector('img, video');
+            const modal = document.getElementById('photo-modal');
+            const containerModal = document.getElementById('modal-content-container');
+
+            containerModal.innerHTML = ''; // Limpa antes de abrir o novo
+
+            if (midiaOriginal && midiaOriginal.tagName === 'IMG') {
+                const novaImg = document.createElement('img');
+                novaImg.src = midiaOriginal.src;
+                containerModal.appendChild(novaImg);
+            } else if (midiaOriginal && midiaOriginal.tagName === 'VIDEO') {
+                const novoVideo = document.createElement('video');
+                novoVideo.src = midiaOriginal.src;
+                novoVideo.autoplay = true;
+                novoVideo.controls = true; // Botões de volume e pause no modo tela cheia
+                novoVideo.playsInline = true;
+                containerModal.appendChild(novoVideo);
+            }
+
+            modal.classList.add('active');
+        }
+
+        // MATRIX CANVAS REMOVIDO PARA DAR VIDA AO FUNDO CLARO
+    </script>
+</body>
+
+</html>
